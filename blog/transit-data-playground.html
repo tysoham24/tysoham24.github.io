@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Transit Data Is the Best Free Playground for Data Engineers</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="wrap">
+<article class="post">
+<nav class="top" style="margin:32px 0 0"><a href="index.html">← Blog</a></nav>
+<h1>Public Transit Data Is the Best Free Playground for Data Engineers</h1>
+<p class="meta">July 2026 · 5 min read</p>
+
+<p>Every data engineering portfolio has the same three projects: a Kaggle CSV
+loaded into Postgres, a Twitter, sorry, X, sentiment pipeline that stopped
+working when the API got paywalled, and a "streaming" demo that streams a
+file from disk. Recruiters have seen all of them a hundred times, and none
+of them teach you the thing that actually makes pipeline work hard: a live
+source you don't control.</p>
+
+<p>Transit feeds fix this. Most big transit agencies publish GTFS-Realtime -
+a protobuf feed of live vehicle positions, trip updates, and alerts. New
+York's MTA publishes the entire subway system, no API key, no rate-limit
+dance, no credit card. Every minute of every day, a few hundred trains
+report where they are. It's the most production-like data you can get
+without a job.</p>
+
+<h2>What it teaches that CSVs can't</h2>
+<p><strong>Protobuf and schemas you don't own.</strong> Your first hour is
+reading someone else's schema definition and figuring out which of the
+optional fields are actually populated. That's not friction, that's the
+job. Half of data engineering is archaeology on other people's data
+models.</p>
+
+<p><strong>Late, missing, and weird data, for real.</strong> Trains lose
+GPS in tunnels. Feed headers lag. Entities disappear mid-trip and come back
+with a different ID. You don't have to simulate messiness; the source
+supplies it, and your pipeline either handles it or falls over visibly.
+Deduplication, watermarks, and freshness checks stop being interview
+vocabulary and start being things you added because Tuesday broke.</p>
+
+<p><strong>Time-series questions with real answers.</strong> Once positions
+are landing, headways fall out naturally: how long between trains at this
+stop, on this line, at rush hour versus midnight? You can check your
+numbers against your own commute. Data you can feel is data you'll debug
+properly.</p>
+
+<h2>The shape of a good project</h2>
+<p>Mine is <a href="https://github.com/tysoham24/open-transit-lakehouse">open
+on GitHub</a>: a poller decodes the feed and appends to an Iceberg table,
+quality gates refuse stale or duplicate batches, Dagster runs the schedule,
+and dbt builds headway marts you can query in DuckDB. Nothing in it is
+exotic, that's the point. It's small enough to read in an evening and
+real enough that every component earns its place.</p>
+
+<p>Whatever stack you pick, aim for the same properties: a live source,
+append-only raw storage, explicit quality checks, and one genuinely
+interesting query at the end. And run it for a week before you call it done.
+Day one always works. It's day four, when the agency pushes a schema
+change, or a feed goes down for maintenance at 3 a.m., that turns a demo
+into an actual system, and gives you the story interviewers are fishing for
+when they ask "tell me about a time something broke."</p>
+
+<footer><p><a href="index.html">← more posts</a></p></footer>
+</article>
+</div>
+</body>
+</html>

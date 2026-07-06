@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iceberg vs. Plain Parquet: When a Table Format Earns Its Keep</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="wrap">
+<article class="post">
+<nav class="top" style="margin:32px 0 0"><a href="index.html">← Blog</a></nav>
+<h1>Iceberg vs. Plain Parquet: When a Table Format Earns Its Keep</h1>
+<p class="meta">July 2026 · 6 min read</p>
+
+<p>A folder of Parquet files gets you shockingly far. Partition by date,
+point DuckDB or Spark at a glob path, and you have a query-able "table" for
+the cost of nothing. Plenty of teams run real workloads this way, and for a
+while it's the right call. Then one of four things happens, and you discover
+what a table format is actually for.</p>
+
+<h2>The four things</h2>
+<p><strong>1. A write fails halfway.</strong> Your job dies after writing
+six of eleven files. With plain Parquet, readers now see a partial batch -
+and there's no marker saying so. You end up inventing _SUCCESS flags or
+staging-then-rename choreography, badly reinventing what Iceberg's
+snapshots give you for free: readers see the last committed state, entire
+batches appear atomically or not at all.</p>
+
+<p><strong>2. The schema changes.</strong> Upstream adds a column. Old files
+don't have it; new files do. Some engines shrug and null-fill; others error
+at plan time; one memorable failure mode silently maps columns by position.
+Iceberg tracks schema by field ID, so add/rename/drop are metadata
+operations with defined behavior across every file, old and new.</p>
+
+<p><strong>3. You need to delete specific rows.</strong> A duplicate batch,
+a GDPR request, a bad backfill. With bare files your unit of surgery is the
+file, rewrite everything containing the offending rows, and hope nothing
+reads mid-rewrite. Iceberg gives you row-level deletes and, since readers
+pin a snapshot, time travel back to before your mistake. That last one has
+turned a would-be incident into a one-liner for a lot of people.</p>
+
+<p><strong>4. Small files pile up.</strong> Frequent appends produce
+thousands of tiny files, and query planning starts drowning in listing
+overhead. Iceberg's manifests replace directory listing with metadata
+pruning, and compaction is a maintenance command instead of a bespoke
+script you wrote at 11pm.</p>
+
+<h2>The honest case against</h2>
+<p>Iceberg adds a catalog to run, a metadata layer to understand, and a new
+failure vocabulary (orphaned manifests, snapshot expiry) to learn. If your
+data is append-only, single-writer, schema-stable, and batch-loaded once a
+day, a lot of analytics honestly is, plain Parquet plus discipline is
+simpler and fine. The format earns its keep when writers multiply, schemas
+drift, or correctness matters more than convenience.</p>
+
+<h2>A cheap way to build the intuition</h2>
+<p>In my <a href="https://github.com/tysoham24/open-transit-lakehouse">transit
+lakehouse</a> project, live subway positions land in an Iceberg table every
+minute, a workload with exactly the failure modes above: a poller that can
+die mid-write, duplicate entities needing dedup, and small files arriving
+constantly. Running it for a week teaches you more about why table formats
+exist than any comparison post, including this one.</p>
+
+<footer><p><a href="index.html">← more posts</a></p></footer>
+</article>
+</div>
+</body>
+</html>

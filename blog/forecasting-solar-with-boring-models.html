@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forecasting Solar with Boring Models</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="wrap">
+<article class="post">
+<nav class="top" style="margin:32px 0 0"><a href="index.html">← Blog</a></nav>
+<h1>Forecasting Solar with Boring Models</h1>
+<p class="meta">July 2026 · 6 min read</p>
+
+<p>Solar forecasting papers are full of transformers, graph networks, and
+hybrid deep architectures. Solar forecasting in production, at least
+everywhere I've seen it, is gradient-boosted trees over good features. The
+gap between those two sentences is worth a post.</p>
+
+<h2>The problem, concretely</h2>
+<p>Given telemetry from a fleet of inverters and a weather forecast, predict
+each unit's generation over the next hours. The catch is fleet
+heterogeneity: different panel orientations, shading from a tree that grew,
+a string that degraded, dust. Two inverters a mile apart under identical
+irradiance can produce reliably different curves, each unit has a
+personality.</p>
+<figure style="margin:26px 0"><svg viewBox="0 0 640 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+<style>.t{font:12px var(--mono);fill:var(--text)}.m{font:11px var(--mono);fill:var(--muted)}</style>
+<text class="m" x="20" y="20">where the accuracy came from (rough share)</text>
+<rect x="150" y="38"  width="380" height="18" fill="var(--accent)" opacity=".85"/><text class="t" x="20" y="52">sun geometry</text>
+<rect x="150" y="66"  width="270" height="18" fill="var(--accent)" opacity=".6"/><text class="t" x="20" y="80">weather joins</text>
+<rect x="150" y="94"  width="170" height="18" fill="var(--accent)" opacity=".4"/><text class="t" x="20" y="108">per-device history</text>
+<rect x="150" y="122" width="60"  height="18" fill="var(--accent)" opacity=".25"/><text class="t" x="20" y="136">model choice</text>
+<line x1="150" y1="30" x2="150" y2="148" stroke="var(--border)"/></svg><figcaption style="font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-top:8px">fig 1 · features over architecture, every time so far</figcaption></figure>
+
+<h2>Why trees keep winning here</h2>
+<p>The signal is mostly tabular and mostly physics: irradiance, cloud
+cover, temperature (panels lose efficiency hot), sun angle by hour of year.
+Gradient boosting eats interactions between tabular features without being
+told. It's also cheap to retrain, which matters more than people admit,
+because fleets change monthly, and when a forecast looks wrong at 6 a.m.,
+feature importances give you a debugging thread instead of an attention map
+to squint at.</p>
+
+<p>The structure that actually moved the needle in my work at a solar
+company wasn't a fancier architecture. It was an ensemble split: one
+<em>global</em> model trained across the fleet, capturing shared physics
+and giving new units something sensible from day one, plus
+<em>per-device</em> models that learn each unit's quirks once it has
+history, blended with a plain random forest for variance. Tuned with
+Optuna. That combination beat persistence baselines by ~35% MAE on our
+fleet, and the two-tier split is where most of the gain came from, not
+the tuning.</p>
+
+<h2>Respect the baseline</h2>
+<p>The dirty secret of solar forecasting is that persistence, "tomorrow at
+noon equals today at noon", is genuinely hard to beat, because weather is
+autocorrelated and panels are deterministic given irradiance. Any paper or
+vendor quoting accuracy without a persistence comparison is hiding the
+denominator. Clear-sky days, everything looks brilliant; the money is
+entirely in the cloudy tail.</p>
+
+<h2>Features over architecture</h2>
+<p>If I had to rank where the accuracy came from: solar geometry features
+first (sun elevation and azimuth encode the daily curve almost by
+themselves), weather-forecast joins second, per-device history third,
+model choice a distant fourth. We ended with 43 features, and the marginal
+transformer experiment never justified its serving cost.</p>
+
+<p>None of this argues deep learning has no place, at grid scale, with
+satellite imagery in the mix, it does. It argues for earning complexity:
+start from persistence, add geometry, add weather, add per-device
+structure, and switch architectures only when the boring one plateaus.
+Mine hasn't yet.</p>
+
+<footer><p><a href="index.html">← more posts</a></p></footer>
+</article>
+</div>
+</body>
+</html>

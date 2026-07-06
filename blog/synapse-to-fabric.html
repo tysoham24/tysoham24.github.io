@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Synapse to Fabric: What Actually Changes</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="wrap">
+<article class="post">
+<nav class="top" style="margin:32px 0 0"><a href="index.html">← Blog</a></nav>
+<h1>Synapse to Fabric: What Actually Changes</h1>
+<p class="meta">July 2026 · 7 min read</p>
+
+<p>Microsoft's positioning makes Fabric sound like Synapse with a new coat of
+paint, which leads teams to scope the migration as a lift-and-shift. It isn't
+one. Three separate things change underneath you, the storage and compute
+model, the pricing model, and the BI serving path, and each one invalidates
+a habit that Synapse taught you.</p>
+<figure style="margin:26px 0"><svg viewBox="0 0 640 190" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+<style>.b{fill:none;stroke:var(--border)}.t{font:12px var(--mono);fill:var(--text)}.m{font:11px var(--mono);fill:var(--muted)}</style>
+<text class="m" x="20" y="22">before: synapse dedicated pool</text>
+<rect class="b" x="20" y="32" width="260" height="130" rx="10"/>
+<rect class="b" x="40" y="52" width="220" height="40" rx="6"/><text class="t" x="52" y="77">data inside the engine</text>
+<rect class="b" x="40" y="104" width="220" height="40" rx="6"/><text class="t" x="52" y="129">tune: distribution keys</text>
+<text class="m" x="360" y="22">after: fabric / onelake</text>
+<rect x="360" y="120" width="260" height="42" rx="6" fill="none" stroke="var(--accent)"/><text class="t" x="415" y="146">delta tables (onelake)</text>
+<rect class="b" x="360" y="32" width="76" height="40" rx="6"/><text class="t" x="368" y="57">wh sql</text>
+<rect class="b" x="452" y="32" width="76" height="40" rx="6"/><text class="t" x="464" y="57">spark</text>
+<rect class="b" x="544" y="32" width="76" height="40" rx="6"/><text class="t" x="548" y="57">direct lake</text>
+<line x1="398" y1="72" x2="440" y2="116" stroke="var(--muted)"/><line x1="490" y1="72" x2="490" y2="116" stroke="var(--muted)"/><line x1="582" y1="72" x2="540" y2="116" stroke="var(--muted)"/></svg><figcaption style="font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-top:8px">fig 1 · the engines detach from the storage, and the tuning vocabulary changes with them</figcaption></figure>
+
+<h2>1. The warehouse stops being a database</h2>
+<p>A Synapse dedicated SQL pool is a classic MPP warehouse: data lives inside
+the engine, and you spend your tuning effort on distribution strategy -
+hash-distributing big facts, replicating small dimensions, praying you picked
+the right key before the 2&nbsp;TB table finished loading.</p>
+
+<p>In Fabric, everything lands in OneLake as Delta tables, and engines
+(warehouse, lakehouse SQL endpoint, Spark) attach to the same files. Two
+practical consequences:</p>
+
+<p>First, <strong>distribution keys stop existing</strong>. The tuning
+vocabulary becomes file-oriented: Delta table maintenance, compaction,
+V-Order. If your Synapse performance depended on carefully chosen hash
+distributions, you need to re-verify every big join, not assume parity.</p>
+
+<p>Second, <strong>T-SQL surface area shrinks</strong> in the lakehouse SQL
+endpoint. Multi-statement stored procedures full of temp tables, identity
+columns, cross-database references, the workhorse patterns of a decade of
+warehouse ETL, need triage: some port directly to the Fabric warehouse, some
+want rewriting as Spark or dataflows, and a few should honestly just die.
+Budget the triage before promising a timeline. This is where migrations
+slip.</p>
+
+<h2>2. Capacity pricing changes your operational habits</h2>
+<p>Synapse dedicated pools bill by DWU: a fixed-size engine you scale
+deliberately and pause at night. Fabric bills by capacity units shared across
+<em>everything</em>, pipelines, Spark, warehouse queries, Power BI. It's one
+pool of compute with smoothing and, when you exhaust it, throttling that
+users experience as "reports are slow."</p>
+
+<p>The habit change: in Synapse you tuned queries; in Fabric you also have to
+<strong>budget workloads against each other</strong>. A greedy backfill can
+starve the CEO's dashboard. The capacity metrics app becomes a first-class
+operational tool, not an afterthought, put someone on it from day one, and
+run a week of production-shaped load before you size the capacity SKU, not
+after.</p>
+
+<h2>3. Direct Lake changes the BI contract</h2>
+<p>This is the part that actually justifies the migration. DirectQuery gave
+you freshness at the cost of per-visual SQL round-trips; Import gave you speed
+at the cost of refresh windows. Direct Lake reads Delta files into memory
+straight from OneLake, near-Import speed with no scheduled refresh.</p>
+
+<p>But it comes with conditions. Models can fall back to DirectQuery when you
+exceed guardrails (row counts, memory limits, certain unsupported features),
+and the fallback is silent unless you monitor for it, your "fast" dashboard
+quietly becomes a slow one after a table doubles. Table maintenance matters
+too: Direct Lake performance tracks how well-compacted and V-Ordered your
+Delta files are, which means your ingestion pipelines and your BI performance
+are now coupled. That coupling is new; in the Synapse world those were
+different teams' problems.</p>
+
+<h2>How I'd sequence it</h2>
+<p>Move the data first and keep the old serving path alive: land everything as
+Delta in OneLake, mirror or dual-write during the transition. Then migrate
+consumption, semantic models to Direct Lake, validating fallback behavior per
+model. Migrate transformation logic last, because it's the slowest and the
+data/BI wins don't depend on it. Teams that start with the stored-procedure
+rewrite spend six months with nothing to show stakeholders; teams that start
+with Direct Lake dashboards have a visible win in the first month while the
+grind proceeds behind it.</p>
+
+<p>The migration is worth it for most Synapse estates, dedicated pools are
+clearly not where Microsoft's investment is going. Just don't let anyone scope
+it as a rename.</p>
+
+<footer><p><a href="index.html">← more posts</a></p></footer>
+</article>
+</div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Quality Gates: The Cheapest Reliability Win in Any Pipeline</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="wrap">
+<article class="post">
+<nav class="top" style="margin:32px 0 0"><a href="index.html">← Blog</a></nav>
+<h1>Data Quality Gates: The Cheapest Reliability Win in Any Pipeline</h1>
+<p class="meta">July 2026 · 5 min read</p>
+
+<p>Most pipeline failures I've dealt with weren't really pipeline failures.
+The DAG was green. Every task succeeded. And the data was wrong anyway -
+an upstream feed went stale, or a source started sending duplicates, or half
+the rows came through with nulls in a column that mattered. The pipeline did
+its job perfectly. Its job just happened to be delivering garbage.</p>
+
+<p>The fix costs about forty lines of Python.</p>
+<figure style="margin:26px 0"><svg viewBox="0 0 640 150" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+<style>.b{fill:none;stroke:var(--border);rx:8}.t{font:12px var(--mono);fill:var(--text)}.m{font:11px var(--mono);fill:var(--muted)}.a{stroke:var(--accent);fill:none;marker-end:url(#ar)}</style>
+<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="none" stroke="var(--accent)"/></marker></defs>
+<rect class="b" x="10" y="45" width="110" height="50" rx="8"/><text class="t" x="30" y="74">fetch</text>
+<rect x="180" y="35" width="130" height="70" rx="8" fill="none" stroke="var(--accent2)"/><text class="t" x="205" y="66">quality</text><text class="t" x="205" y="84">gate</text>
+<rect class="b" x="380" y="45" width="130" height="50" rx="8"/><text class="t" x="398" y="74">iceberg table</text>
+<line class="a" x1="120" y1="70" x2="176" y2="70"/><line class="a" x1="310" y1="60" x2="376" y2="63"/>
+<path d="M310 90 L350 125" stroke="#ff5f57" fill="none" marker-end="url(#ar)"/><text class="m" x="358" y="132" fill="#ff5f57">raise: batch refused</text>
+<text class="m" x="182" y="25">empty? stale? duplicate keys? null routes?</text></svg><figcaption style="font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-top:8px">fig 1 · the gate sits between fetch and landing, and it can say no</figcaption></figure>
+
+<h2>The idea</h2>
+<p>A quality gate is a check that runs <em>between</em> fetching data and
+landing it, and refuses to land a batch that fails. Not a dashboard you look
+at later. Not a dbt test that fails after the mart is already built. A gate.
+The batch doesn't get in.</p>
+
+<p>Here's the entire suite from my <a
+href="https://github.com/tysoham24/open-transit-lakehouse">transit
+lakehouse</a> project, which ingests live NYC subway positions:</p>
+
+<p>Is the batch empty? Are there duplicate entity IDs? Is the feed's own
+header timestamp more than five minutes old? Are more than half the rows
+missing a route ID?</p>
+
+<p>That's it. Four checks. No framework, no YAML, no vendor. Each one returns
+a human-readable sentence, and if the list isn't empty, the ingestion raises
+and the orchestrator shows a red run with an error message a human can act
+on: <code>stale feed: header timestamp lags by 0:12:41</code>.</p>
+
+<h2>Why "fail loudly" beats "log and continue"</h2>
+<p>The tempting alternative is to land the batch anyway and log a warning.
+Don't. Warnings don't get read; they get grepped, after the damage. If bad
+data lands in your bronze layer, it flows into every mart, every dashboard,
+and, worst case, someone's decision, before anyone checks a log. Deleting
+bad rows out of a lakehouse table is far more painful than re-running one
+ingestion an hour later.</p>
+
+<p>A failed run, on the other hand, is impossible to ignore. It pages
+someone, or at least shows up red in the UI. The system's silence becomes
+trustworthy again: green means good data, not just "the code didn't
+crash."</p>
+
+<h2>Where people overdo it</h2>
+<p>The failure mode on the other side is buying a data-quality platform
+before you have data-quality checks. Teams stand up Great Expectations with
+its store and docs site and checkpoint configs, write three expectations,
+and never touch it again, the setup cost ate the appetite. The tools are
+good. But they earn their keep at fifty checks, not five.</p>
+
+<p>Start with a function that takes a DataFrame and returns a list of
+problems. You will know when you've outgrown it, because the function will
+be two hundred lines and three teams will want to share it. That's the day
+to adopt a framework, migration is easy precisely because the checks are
+already written down.</p>
+
+<h2>What to check first</h2>
+<p>If you only add three gates to an existing pipeline, make them these:
+volume (row count within an expected band, catches dead feeds and
+double-sends), freshness (source timestamp, not wall clock, catches the
+upstream job that silently stopped), and key uniqueness (catches the retry
+bug that will otherwise cost you an afternoon of deduping). Between them,
+those three catch most of what actually goes wrong, and each one is a
+few lines and one loud exception.</p>
+
+<footer><p><a href="index.html">← more posts</a></p></footer>
+</article>
+</div>
+</body>
+</html>

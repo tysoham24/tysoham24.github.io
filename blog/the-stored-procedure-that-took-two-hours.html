@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Stored Procedure That Took Two Hours</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="wrap">
+<article class="post">
+<nav class="top" style="margin:32px 0 0"><a href="index.html">← Blog</a></nav>
+<h1>The Stored Procedure That Took Two Hours</h1>
+<p class="meta">July 2026 · 5 min read</p>
+
+<p>Early in my consulting years I inherited a stored procedure that built a
+fact table for a client's nightly load. It ran for a bit over two hours.
+Nobody knew why. It had always taken two hours, the way a commute always
+takes an hour, people had stopped thinking of it as a number that could
+change. It was just weather.</p>
+
+<p>It became my problem when the nightly window got crowded and the two
+hours started pushing everything behind it past the morning SLA.</p>
+
+<h2>The usual suspects, cleared</h2>
+<p>First instinct: missing index. No, the scans were on staging tables that
+got truncated and reloaded nightly; indexing them would just move the cost
+into the load. Second instinct: bad join order. The plan looked reasonable.
+Statistics were fresh. No parameter sniffing weirdness. The individual
+pieces were all fine, which was exactly the clue.</p>
+
+<h2>What it actually was</h2>
+<p>The procedure was written as one majestic statement: five CTEs stacked on
+top of each other, feeding a final MERGE. It read beautifully. The author
+clearly (and reasonably) believed the optimizer would materialize each step
+once, like variables in a script.</p>
+
+<p>That's not what CTEs are. In SQL Server, a CTE is an inline view, a
+macro, not a checkpoint. Reference it twice and its subtree can execute
+twice. Stack five of them and the optimizer faces one enormous plan space,
+takes its best guess, and on tables this size, guesses wrong somewhere. One
+of the middle CTEs, a windowed dedup over the largest staging table, was
+being expanded into two branches of the final plan. The most expensive step
+in the whole job ran twice, and its misestimated cardinality poisoned every
+join above it.</p>
+<figure style="margin:26px 0"><svg viewBox="0 0 640 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+<style>.b{fill:none;stroke:var(--border)}.r{fill:none;stroke:#ff5f57}.g{fill:none;stroke:var(--accent2)}.t{font:11px var(--mono);fill:var(--text)}.m{font:11px var(--mono);fill:var(--muted)}</style>
+<text class="m" x="20" y="20">one giant statement</text>
+<rect class="r" x="20" y="30" width="120" height="30" rx="6"/><text class="t" x="30" y="49">dedup CTE</text>
+<rect class="r" x="20" y="75" width="120" height="30" rx="6"/><text class="t" x="30" y="94">dedup CTE (again)</text>
+<rect class="b" x="180" y="52" width="100" height="30" rx="6"/><text class="t" x="196" y="71">final MERGE</text>
+<line x1="140" y1="45" x2="176" y2="62" stroke="#ff5f57"/><line x1="140" y1="90" x2="176" y2="74" stroke="#ff5f57"/>
+<text class="m" x="20" y="135">broken into steps</text>
+<rect class="g" x="20" y="145" width="110" height="28" rx="6"/><text class="t" x="30" y="163">#deduped · once</text>
+<rect class="b" x="160" y="145" width="110" height="28" rx="6"/><text class="t" x="170" y="163">real stats</text>
+<rect class="b" x="300" y="145" width="110" height="28" rx="6"/><text class="t" x="312" y="163">honest plan</text>
+<line x1="130" y1="159" x2="156" y2="159" stroke="var(--accent2)"/><line x1="270" y1="159" x2="296" y2="159" stroke="var(--accent2)"/>
+<text class="m" x="330" y="49">2h+ → the expensive subtree ran twice</text>
+<text class="m" x="440" y="163">→ under 30 min</text></svg><figcaption style="font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-top:8px">fig 1 · same logic, different shape, 4x faster</figcaption></figure>
+
+<h2>The fix, which is almost embarrassing</h2>
+<p>I broke the statement apart: each CTE became an explicit temp table, in
+order, with the dedup landing in <code>#deduped</code> exactly once. Temp
+tables have real statistics, so every subsequent step got honest row counts
+instead of a guess stacked on a guess. The optimizer's job went from
+"unravel this cathedral" to five small problems in a row.</p>
+
+<p>Runtime: two hours down to under thirty minutes. No new hardware, no
+schema changes, no vendor ticket. The diff was mostly indentation.</p>
+
+<h2>What I actually took from it</h2>
+<p>Elegance in SQL is a property of the plan, not the text. The five-CTE
+version was prettier to read; the temp-table version was prettier to
+execute, and the database only ever sees the second kind of pretty.</p>
+
+<p>The deeper lesson was about "weather" problems. Every long-lived system
+has a few, numbers everyone has absorbed as facts of nature. They're often
+the cheapest wins available, precisely because nobody has looked at them in
+years. When you inherit a system, ask what everyone waits for and treats as
+normal. Then go read the plan.</p>
+
+<footer><p><a href="index.html">← more posts</a></p></footer>
+</article>
+</div>
+</body>
+</html>

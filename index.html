@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soham Tyagi · Engineer</title>
+<meta name="description" content="Data and software engineer. Energy analytics, pipelines, and applied ML.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="progress"></div>
+<aside class="rail rail-left" aria-hidden="true">
+  <a href="#about" class="dot" data-s="about"><i></i><em>about</em></a>
+  <a href="#stack" class="dot" data-s="stack"><i></i><em>stack</em></a>
+  <a href="#experience" class="dot" data-s="experience"><i></i><em>experience</em></a>
+  <a href="#projects" class="dot" data-s="projects"><i></i><em>projects</em></a>
+  <a href="#publication" class="dot" data-s="publication"><i></i><em>publication</em></a>
+  <a href="#writing" class="dot" data-s="writing"><i></i><em>writing</em></a>
+</aside>
+<canvas id="bg"></canvas>
+<div class="aurora a1"></div>
+<div class="aurora a2"></div>
+<div id="cursor-glow"></div>
+
+<div id="term-overlay">
+  <div class="term">
+    <div class="term-bar"><i></i><i></i><i></i><span>soham@nyc:~</span></div>
+    <div class="term-body" id="term-body"></div>
+  </div>
+</div>
+<button id="skip-btn">skip intro ⏎</button>
+
+<div id="palette">
+  <div class="palette-box">
+    <input id="palette-input" placeholder="jump to..." autocomplete="off">
+    <ul id="palette-list"></ul>
+  </div>
+</div>
+
+<div class="wrap">
+
+<header class="site">
+  <p class="kicker">$ whoami</p>
+  <h1 class="glitch" data-text="Soham Tyagi"><span>Soham Tyagi</span></h1>
+  <p class="type-line"><span id="type-target"></span><span class="tcaret"></span></p>
+  <p class="avail"><i></i>open to interesting problems</p>
+  <p class="tagline">Data &amp; software engineer · co-founder at <a href="https://cinderellas.ai">Cinderella</a> · MS CompE @ NYU.</p>
+  <nav class="top">
+    <a href="#experience">experience</a>
+    <a href="#projects">projects</a>
+    <a href="#publication">publication</a>
+    <a href="blog/index.html">blog</a>
+    <a href="https://github.com/tysoham24">github</a>
+    <a href="https://linkedin.com/in/soham-ty">linkedin</a>
+  </nav>
+  <p class="palette-hint"><kbd>ctrl</kbd> + <kbd>k</kbd> to jump anywhere</p>
+</header>
+
+<section id="about" class="reveal">
+  <h2>about</h2>
+  <p>Hey! I'm Soham, an undergrad in electrical engineering and (almost) a postgrad in
+  computer engineering at NYU.</p>
+  <p>I'm a consultant-cum-engineer. Basically, I love building things for real-world
+  applications, and finding use cases for the things I build. I picked that up at
+  Ernst &amp; Young, where I got deep exposure to the utilities/energy and pharma sectors.</p>
+  <p>I'm still exploring different industries and learning about them. For now, I'm
+  building whatever feels interesting without worrying about my "niche".</p>
+</section>
+
+<section id="stack" class="reveal">
+  <h2>stack</h2>
+  <div class="grid">
+    <div class="card"><h3>Languages</h3><div class="tags"><span class="tag">python</span><span class="tag">sql / t-sql</span><span class="tag">typescript</span><span class="tag">c/c++</span><span class="tag">bash</span></div></div>
+    <div class="card"><h3>Data platform</h3><div class="tags"><span class="tag">spark</span><span class="tag">kafka</span><span class="tag">airflow</span><span class="tag">dagster</span><span class="tag">dbt</span><span class="tag">iceberg</span><span class="tag">duckdb</span><span class="tag">star schemas</span><span class="tag">scd type 2</span></div></div>
+    <div class="card"><h3>Cloud</h3><div class="tags"><span class="tag">redshift</span><span class="tag">glue</span><span class="tag">s3</span><span class="tag">lambda</span><span class="tag">athena</span><span class="tag">azure data factory</span><span class="tag">azure sql</span><span class="tag">docker</span><span class="tag">github actions</span></div></div>
+    <div class="card"><h3>ML & product</h3><div class="tags"><span class="tag">xgboost</span><span class="tag">lightgbm</span><span class="tag">optuna</span><span class="tag">yolo</span><span class="tag">flask</span><span class="tag">fastapi</span><span class="tag">next.js</span><span class="tag">power bi</span></div></div>
+  </div>
+</section>
+
+<section id="experience" class="reveal">
+  <h2>experience</h2>
+  <div class="timeline">
+
+  <div class="card">
+    <h3><a href="https://cinderellas.ai">Co-founder · Cinderella ↗</a></h3>
+    <p class="meta">2025 – Present · New York · cinderellas.ai</p>
+    <ul>
+      <li>AI fashion app: virtual try-on, a digital closet, and outfit planning. Selected
+      for the <strong>Leslie Labs incubation program</strong>.</li>
+      <li>Four-person founding team: the Next.js web app and the Python inference backend.
+      The job is whatever the release needs: APIs, releases, keeping GPU costs sane.</li>
+    </ul>
+    <div class="tags"><span class="tag">next.js</span><span class="tag">python</span><span class="tag">inference</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Software Engineering Intern · EG4 Electronics</h3>
+    <p class="meta">Jan – Jun 2026 · New York · solar/energy tech</p>
+    <ul>
+      <li>Built and shipped an end-to-end solar PV forecasting pipeline: EG4 API telemetry
+      joined with Open-Meteo weather into 43 features, an Optuna-tuned ensemble (global +
+      per-device XGBoost, Random Forest) hitting <strong>R² 0.84</strong> and a
+      <strong>34.5% MAE improvement</strong> over persistence across 57 inverters, served
+      through a Flask API on RDS MySQL.</li>
+      <li>Designed the fleet's REST ingestion layer (pagination, multi-domain auth,
+      deduplication) covering <strong>3,630 inverters across 3,569 sites</strong>.</li>
+      <li>Fleet analysis over 14,520 smart ports flagged <strong>210+ misconfigured units</strong>,
+      delivered to operations as ranked site-level reports.</li>
+    </ul>
+    <div class="tags"><span class="tag">python</span><span class="tag">xgboost</span><span class="tag">optuna</span><span class="tag">flask</span><span class="tag">aws</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Ernst &amp; Young</h3>
+    <p class="meta">Jul 2021 – Aug 2024 · New Delhi · Data &amp; Analytics</p>
+    <p class="meta"><strong>Associate Consultant</strong> · Jul 2023 – Aug 2024</p>
+    <ul>
+      <li>Sole continuous technical resource for a global pharmaceutical account, owning CRM migrations, SAP BW integration, and 12+ months of
+      production support including late-night escalation calls.</li>
+      <li>Migrated 24 Salesforce CRM objects from Redshift to Azure SQL DW as part of retiring a
+      costlier legacy AWS stack, and cut a critical stored procedure from
+      <strong>2+ hours to under 30 minutes</strong>.</li>
+      <li>Built ADF pipelines for 76 of 117 SAP BW DSOs, turning a weekly, week-lagged manual
+      portal download into a <strong>daily</strong> Power BI sales dashboard.</li>
+    </ul>
+    <p class="meta"><strong>Senior Analyst</strong> · Jan 2022 – Jun 2023</p>
+    <ul>
+      <li>Asset-health pipelines for <strong>two national utility clients</strong>: IBM APM and
+      SQL Server data into AWS (S3, Glue/PySpark, Redshift), daily refreshes saving client teams
+      <strong>25–40 hours/month</strong> of manual prep; tuned the Redshift star schema for
+      15–18% query gains.</li>
+    </ul>
+    <p class="meta"><strong>Analyst</strong> · Jul 2021 – Jan 2022</p>
+    <ul>
+      <li>SQL Server staging pipelines consolidating datasets from multiple operating regions,
+      with SQL/Python cleansing that cut manual effort <strong>~20%</strong>; helped define the
+      client's first cost-of-failure metrics with reliability SMEs.</li>
+    </ul>
+    <div class="tags"><span class="tag">adf</span><span class="tag">pyspark</span><span class="tag">redshift</span><span class="tag">azure sql</span><span class="tag">power bi</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Research Trainee · DRDO</h3>
+    <p class="meta">Summer 2020 · New Delhi · third-year internship</p>
+    <ul>
+      <li>Digitized handwritten entry logbooks: table-structure detection plus fine-tuned
+      handwriting OCR, <strong>78% word accuracy</strong> over ~200 pages / 4K records, with
+      low-confidence rows flagged for manual review.</li>
+    </ul>
+    <div class="tags"><span class="tag">ocr</span><span class="tag">python</span><span class="tag">sqlite</span></div>
+  </div>
+
+  </div>
+</section>
+
+<section id="projects" class="reveal">
+  <h2>projects</h2>
+  <div class="grid">
+
+    <div class="card">
+      <h3><a href="https://tysoham24.github.io/transit-pulse/">transit-pulse ↗</a></h3>
+      <p class="meta">live demo · zero-server data platform</p>
+      <p>A live NYC subway dashboard where GitHub Actions is the scheduler, parquet
+      files are the warehouse, and DuckDB runs in your browser as the query engine.
+      $0/month, publicly auditable pipeline runs.</p>
+      <div class="tags"><span class="tag">github actions</span><span class="tag">parquet</span><span class="tag">duckdb-wasm</span><span class="tag">gtfs-rt</span></div>
+    </div>
+
+    <div class="card">
+      <h3><a href="https://tysoham24.github.io/fieldkit/">fieldkit ↗</a></h3>
+      <p class="meta">live demo · instant CSV profiling</p>
+      <p>Drop in any messy CSV and get a schema profile, a data-quality report, and
+      auto-charts in seconds, entirely client-side. The first week of a client
+      engagement, as a tool.</p>
+      <div class="tags"><span class="tag">javascript</span><span class="tag">data quality</span><span class="tag">svg</span></div>
+    </div>
+
+    <div class="card">
+      <h3><a href="https://github.com/tysoham24/fraud-detection-pipeline">fraud-detection-pipeline</a></h3>
+      <p class="meta">real-time streaming ML</p>
+      <p>Windowed per-card features in Spark Structured Streaming, in-stream LightGBM
+      scoring, dbt marts for model monitoring, Airflow backfills. Fully dockerized.</p>
+      <div class="tags"><span class="tag">kafka</span><span class="tag">spark</span><span class="tag">lightgbm</span><span class="tag">dbt</span></div>
+    </div>
+
+    <div class="card">
+      <h3><a href="https://github.com/tysoham24/open-transit-lakehouse">open-transit-lakehouse</a></h3>
+      <p class="meta">live NYC subway data</p>
+      <p>GTFS-Realtime protobuf feeds landing in Iceberg behind data-quality gates that
+      refuse bad batches; Dagster schedules, dbt headway marts in DuckDB.</p>
+      <div class="tags"><span class="tag">dagster</span><span class="tag">iceberg</span><span class="tag">duckdb</span><span class="tag">dbt</span></div>
+    </div>
+
+    <div class="card">
+      <h3><a href="https://drive.google.com/file/d/1W2cNU88qZrOVuxnFVaxUv-ODOrXoEXy3/view">Animatronic Hand</a></h3>
+      <p class="meta">embedded · demo video</p>
+      <p>Servo-actuated hand teleoperated by glove-mounted flex sensors: analog
+      acquisition, calibration, PWM control in embedded C/C++.</p>
+      <div class="tags"><span class="tag">arduino</span><span class="tag">c/c++</span></div>
+    </div>
+
+    <div class="card">
+      <h3><a href="https://drive.google.com/file/d/1tSi9jU3jndByCchiKvwNVuRX1Q-VUpF6/view">Solar Tracker</a></h3>
+      <p class="meta">embedded · demo video</p>
+      <p>Panel alignment driven by photodiode intensity readings and real-time motor
+      control: the project that led to the paper below.</p>
+      <div class="tags"><span class="tag">arduino</span><span class="tag">analog</span></div>
+    </div>
+
+  </div>
+</section>
+
+<section id="publication" class="reveal">
+  <h2>publication</h2>
+  <div class="card">
+    <h3>Battery Charging Using Solar Photovoltaic System with Maximum Power Point Tracking</h3>
+    <p class="meta">Samaddar · Rastogi · Tyagi · Mishra · Springer, Jan 2022</p>
+    <p><a href="https://link.springer.com/chapter/10.1007/978-981-16-6482-3_27">doi: 10.1007/978-981-16-6482-3_27</a></p>
+  </div>
+</section>
+
+<section id="writing" class="reveal">
+  <h2>latest writing</h2>
+  <div class="grid">
+    <div class="card">
+      <h3><a href="blog/forecasting-solar-with-boring-models.html">Forecasting Solar with Boring Models</a></h3>
+      <p class="meta">6 min</p>
+      <p>Papers say transformers. Production says gradient-boosted trees over sun geometry.</p>
+    </div>
+    <div class="card">
+      <h3><a href="blog/the-stored-procedure-that-took-two-hours.html">The Stored Procedure That Took Two Hours</a></h3>
+      <p class="meta">5 min</p>
+      <p>Five beautiful CTEs, one poisoned query plan, a fix that was mostly indentation.</p>
+    </div>
+  </div>
+  <p style="margin-top:14px"><a href="blog/index.html">all posts →</a></p>
+</section>
+
+<footer>
+  <p>© 2026 Soham Tyagi · hand-rolled HTML, zero frameworks · <a href="blog/index.html">blog</a> · <a href="#top">top</a></p>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- terminal intro ---- */
+  var overlay = document.getElementById('term-overlay');
+  var body = document.getElementById('term-body');
+  var skip = document.getElementById('skip-btn');
+  var seen = sessionStorage.getItem('introSeen');
+  function finish() {
+    overlay.classList.add('done'); skip.style.display = 'none';
+    sessionStorage.setItem('introSeen', '1');
+    setTimeout(function () { overlay.remove(); }, 700);
+  }
+  if (reduced || seen) { finish(); }
+  else {
+    var script = [
+      { p: true,  t: 'whoami' },
+      { p: false, t: 'soham tyagi · data & software engineer' },
+      { p: true,  t: 'ls ~/work' },
+      { p: false, t: 'eg4-solar-forecasting/  cinderella-app/  ey-consulting/  drdo-ocr/' },
+      { p: true,  t: 'cat now.txt' },
+      { p: false, t: 'MS CompE @ NYU · co-founder @ cinderella · ex-EY, ex-EG4' },
+      { p: true,  t: './portfolio --open' },
+      { p: false, t: 'rendering…', hl: true }
+    ];
+    var li = 0;
+    function typeLine() {
+      if (li >= script.length) { setTimeout(finish, 500); return; }
+      var item = script[li++];
+      var ln = document.createElement('p');
+      ln.className = 'ln' + (item.p ? '' : ' out') + (item.hl ? ' hl' : '');
+      body.appendChild(ln);
+      var prefix = item.p ? '<span class="p">soham@nyc:~$ </span>' : '';
+      if (!item.p) { ln.innerHTML = prefix + item.t; setTimeout(typeLine, 340); return; }
+      var i = 0, cur = '<span class="cursor"></span>';
+      (function tick() {
+        ln.innerHTML = prefix + item.t.slice(0, i) + cur;
+        if (i++ < item.t.length) setTimeout(tick, 34);
+        else { ln.innerHTML = prefix + item.t; setTimeout(typeLine, 260); }
+      })();
+    }
+    setTimeout(typeLine, 400);
+    skip.addEventListener('click', finish);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Enter') finish(); });
+  }
+
+  /* ---- particle background ---- */
+  var canvas = document.getElementById('bg'), ctx = canvas.getContext('2d'), pts = [];
+  function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
+  resize(); addEventListener('resize', resize);
+  for (var i = 0; i < 70; i++) pts.push({ x: Math.random()*innerWidth, y: Math.random()*innerHeight, vx: (Math.random()-.5)*.35, vy: (Math.random()-.5)*.35 });
+  function step() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (var i = 0; i < pts.length; i++) {
+      var p = pts[i];
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+      ctx.fillStyle = i % 3 ? 'rgba(56,209,255,.45)' : 'rgba(179,136,255,.4)';
+      ctx.fillRect(p.x, p.y, 1.6, 1.6);
+      for (var j = i + 1; j < pts.length; j++) {
+        var q = pts[j], dx = p.x - q.x, dy = p.y - q.y, d = dx*dx + dy*dy;
+        if (d < 16000) {
+          ctx.strokeStyle = 'rgba(56,209,255,' + (0.10 * (1 - d/16000)) + ')';
+          ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
+        }
+      }
+    }
+    if (!reduced) requestAnimationFrame(step);
+  }
+  if (!reduced) step();
+
+  /* ---- cursor glow + card tilt ---- */
+  var glow = document.getElementById('cursor-glow');
+  if (!reduced) document.addEventListener('mousemove', function (e) {
+    glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('.card').forEach(function (card) {
+    card.addEventListener('mousemove', function (e) {
+      if (reduced) return;
+      var r = card.getBoundingClientRect();
+      var rx = ((e.clientY - r.top) / r.height - .5) * -4;
+      var ry = ((e.clientX - r.left) / r.width - .5) * 4;
+      card.style.transform = 'perspective(800px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) translateY(-2px)';
+    });
+    card.addEventListener('mouseleave', function () { card.style.transform = ''; });
+  });
+
+  /* ---- reveal on scroll ---- */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+  /* ---- command palette ---- */
+  var palette = document.getElementById('palette');
+  var input = document.getElementById('palette-input');
+  var list = document.getElementById('palette-list');
+  var items = [
+    { k: 'go', label: 'experience', act: function(){ location.hash = '#experience'; } },
+    { k: 'go', label: 'projects', act: function(){ location.hash = '#projects'; } },
+    { k: 'go', label: 'publication', act: function(){ location.hash = '#publication'; } },
+    { k: 'go', label: 'blog', act: function(){ location.href = 'blog/index.html'; } },
+    { k: 'open', label: 'github / tysoham24', act: function(){ location.href = 'https://github.com/tysoham24'; } },
+    { k: 'open', label: 'linkedin / soham-ty', act: function(){ location.href = 'https://linkedin.com/in/soham-ty'; } },
+    { k: 'open', label: 'cinderellas.ai', act: function(){ location.href = 'https://cinderellas.ai'; } }
+  ];
+  var sel = 0, view = items;
+  function render() {
+    list.innerHTML = '';
+    view.forEach(function (it, i) {
+      var li = document.createElement('li');
+      li.innerHTML = '<span>' + it.k + '</span>' + it.label;
+      if (i === sel) li.classList.add('sel');
+      li.onclick = function () { close(); it.act(); };
+      list.appendChild(li);
+    });
+  }
+  function open() { palette.classList.add('open'); input.value = ''; view = items; sel = 0; render(); input.focus(); }
+  function close() { palette.classList.remove('open'); }
+  document.addEventListener('keydown', function (e) {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); palette.classList.contains('open') ? close() : open(); }
+    if (!palette.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowDown') { sel = Math.min(sel + 1, view.length - 1); render(); }
+    if (e.key === 'ArrowUp') { sel = Math.max(sel - 1, 0); render(); }
+    if (e.key === 'Enter' && view[sel]) { close(); view[sel].act(); }
+  });
+  input && input.addEventListener('input', function () {
+    var q = input.value.toLowerCase();
+    view = items.filter(function (it) { return it.label.toLowerCase().indexOf(q) >= 0; });
+    sel = 0; render();
+  });
+  palette.addEventListener('click', function (e) { if (e.target === palette) close(); });
+
+  /* ---- typing rotator ---- */
+  var roles = ['data engineer', 'software engineer', 'pipeline person', 'co-founder @ cinderella', 'ee at heart'];
+  var tEl = document.getElementById('type-target'), ri = 0, ci = 0, del = false;
+  function typeRole() {
+    if (reduced) { tEl.textContent = roles[0]; return; }
+    var word = roles[ri % roles.length];
+    tEl.textContent = word.slice(0, ci);
+    if (!del && ci++ === word.length) { del = true; setTimeout(typeRole, 1400); return; }
+    if (del && ci-- === 0) { del = false; ri++; }
+    setTimeout(typeRole, del ? 34 : 62);
+  }
+  typeRole();
+
+  /* ---- scroll progress ---- */
+  var prog = document.getElementById('progress');
+  addEventListener('scroll', function () {
+    var h = document.documentElement;
+    prog.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+  }, { passive: true });
+
+  /* ---- rail active section ---- */
+  var dots = document.querySelectorAll('.rail-left .dot');
+  var io2 = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      dots.forEach(function (d) { d.classList.toggle('on', d.dataset.s === e.target.id); });
+    });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+  ['about','stack','experience','projects','publication','writing'].forEach(function (id) {
+    var el = document.getElementById(id); if (el) io2.observe(el);
+  });
+})();
+</script>
+</body>
+</html>
