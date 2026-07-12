@@ -12,11 +12,12 @@
 <div id="progress"></div>
 <aside class="rail rail-left" aria-hidden="true">
   <a href="#about" class="dot" data-s="about"><i></i><em>about</em></a>
-  <a href="#stack" class="dot" data-s="stack"><i></i><em>stack</em></a>
+  <a href="#skills" class="dot" data-s="skills"><i></i><em>skills</em></a>
   <a href="#experience" class="dot" data-s="experience"><i></i><em>experience</em></a>
   <a href="#projects" class="dot" data-s="projects"><i></i><em>projects</em></a>
   <a href="#publication" class="dot" data-s="publication"><i></i><em>publication</em></a>
-  <a href="#writing" class="dot" data-s="writing"><i></i><em>writing</em></a>
+  <a href="#resume" class="dot" data-s="resume"><i></i><em>resume</em></a>
+  <a href="#contact" class="dot" data-s="contact"><i></i><em>contact</em></a>
 </aside>
 <canvas id="bg"></canvas>
 <div class="aurora a1"></div>
@@ -44,197 +45,251 @@
   <p class="kicker">$ whoami</p>
   <h1 class="glitch" data-text="Soham Tyagi"><span>Soham Tyagi</span></h1>
   <p class="type-line"><span id="type-target"></span><span class="tcaret"></span></p>
-  <p class="avail"><i></i>open to interesting problems</p>
-  <p class="tagline">Data &amp; software engineer · co-founder at <a href="https://cinderellas.ai">Cinderella</a> · MS CompE @ NYU.</p>
+  <p class="tagline">Consultant · data &amp; software engineer.</p>
   <nav class="top">
     <a href="#experience">experience</a>
     <a href="#projects">projects</a>
-    <a href="#publication">publication</a>
+    <a href="#resume">resume</a>
+    <a href="#contact">contact</a>
     <a href="blog/index.html">blog</a>
-    <a href="https://github.com/tysoham24">github</a>
-    <a href="https://linkedin.com/in/soham-ty">linkedin</a>
   </nav>
   <p class="palette-hint"><kbd>ctrl</kbd> + <kbd>k</kbd> to jump anywhere</p>
 </header>
 
 <section id="about" class="reveal">
-  <h2>about</h2>
-  <p>Hey! I'm Soham, an undergrad in electrical engineering and (almost) a postgrad in
-  computer engineering at NYU.</p>
-  <p>I'm a consultant-cum-engineer. Basically, I love building things for real-world
-  applications, and finding use cases for the things I build. I picked that up at
-  Ernst &amp; Young, where I got deep exposure to the utilities/energy and pharma sectors.</p>
-  <p>I'm still exploring different industries and learning about them. For now, I'm
-  building whatever feels interesting without worrying about my "niche".</p>
+  <h2>about me</h2>
+  <div class="about-text">
+    <p>Hi! I'm Soham - an undergrad in electrical engineering and a recent master's
+    graduate in computer engineering from New York University.</p>
+    <p>I previously spent three years at Ernst &amp; Young in their Global Delivery
+    Services practice, building data platforms for utilities, energy, and pharmaceutical
+    clients. That's where I learned to be a consultant-cum-engineer - really understanding
+    the use cases and needs behind the systems I built.</p>
+    <p>I recently wrapped an internship at EG4 Electronics, where I built a solar PV
+    forecasting model to replace an existing third-party service by combining weather
+    and inverter telemetry data.</p>
+    <p>All these experiences encouraged me to start a small venture -
+    <a href="https://cinderellas.ai">Cinderella</a> - with a few of my friends.</p>
+    <p>Away from the keyboard, I enjoy playing lawn tennis, video games, and spending
+    time with my two dogs!</p>
+    <p class="read-more">Please read more about my experiences, projects, and more below!</p>
+  </div>
 </section>
 
-<section id="stack" class="reveal">
-  <h2>stack</h2>
-  <div class="grid">
-    <div class="card"><h3>Languages</h3><div class="tags"><span class="tag">python</span><span class="tag">sql / t-sql</span><span class="tag">typescript</span><span class="tag">c/c++</span><span class="tag">bash</span></div></div>
-    <div class="card"><h3>Data platform</h3><div class="tags"><span class="tag">spark</span><span class="tag">kafka</span><span class="tag">airflow</span><span class="tag">dagster</span><span class="tag">dbt</span><span class="tag">iceberg</span><span class="tag">duckdb</span><span class="tag">star schemas</span><span class="tag">scd type 2</span></div></div>
-    <div class="card"><h3>Cloud</h3><div class="tags"><span class="tag">redshift</span><span class="tag">glue</span><span class="tag">s3</span><span class="tag">lambda</span><span class="tag">athena</span><span class="tag">azure data factory</span><span class="tag">azure sql</span><span class="tag">docker</span><span class="tag">github actions</span></div></div>
-    <div class="card"><h3>ML & product</h3><div class="tags"><span class="tag">xgboost</span><span class="tag">lightgbm</span><span class="tag">optuna</span><span class="tag">yolo</span><span class="tag">flask</span><span class="tag">fastapi</span><span class="tag">next.js</span><span class="tag">power bi</span></div></div>
+<section id="skills" class="reveal">
+  <h2>skills</h2>
+  <div class="grid skills-grid">
+    <div class="card skill-card">
+      <h3>Languages</h3>
+      <p>Python · SQL / T-SQL · TypeScript · C / C++ · Java</p>
+    </div>
+    <div class="card skill-card">
+      <h3>Data Engineering</h3>
+      <p>Kafka · Spark · Airflow · Dagster · dbt · Azure Data Factory · Snowflake · Databricks · dimensional modeling · medallion architecture</p>
+    </div>
+    <div class="card skill-card">
+      <h3>AI / ML</h3>
+      <p>Agentic workflows &amp; AI orchestration · RAG · PyTorch · TensorFlow</p>
+    </div>
+    <div class="card skill-card">
+      <h3>Infra &amp; DevOps</h3>
+      <p>Docker · AWS · Azure · CI/CD (GitHub Actions) · observability (CloudWatch, Azure Monitor)</p>
+    </div>
   </div>
 </section>
 
 <section id="experience" class="reveal">
   <h2>experience</h2>
-  <div class="timeline">
+  <div class="exp-list">
 
-  <div class="card">
-    <h3><a href="https://cinderellas.ai">Co-founder · Cinderella ↗</a></h3>
-    <p class="meta">2025 – Present · New York · cinderellas.ai</p>
-    <ul>
-      <li>AI fashion app: virtual try-on, a digital closet, and outfit planning. Selected
-      for the <strong>Leslie Labs incubation program</strong>.</li>
-      <li>Four-person founding team: the Next.js web app and the Python inference backend.
-      The job is whatever the release needs: APIs, releases, keeping GPU costs sane.</li>
-    </ul>
-    <div class="tags"><span class="tag">next.js</span><span class="tag">python</span><span class="tag">inference</span></div>
-  </div>
+    <a class="exp-row exp-link" href="https://cinderellas.ai" target="_blank" rel="noopener">
+      <span class="exp-date">2025 - now</span>
+      <span class="exp-body"><strong>Co-founder · Cinderella</strong> - AI fashion app. Leslie Labs incubation. <span class="exp-arrow">↗</span></span>
+    </a>
 
-  <div class="card">
-    <h3>Software Engineering Intern · EG4 Electronics</h3>
-    <p class="meta">Jan – Jun 2026 · New York · solar/energy tech</p>
-    <ul>
-      <li>Built and shipped an end-to-end solar PV forecasting pipeline: EG4 API telemetry
-      joined with Open-Meteo weather into 43 features, an Optuna-tuned ensemble (global +
-      per-device XGBoost, Random Forest) hitting <strong>R² 0.84</strong> and a
-      <strong>34.5% MAE improvement</strong> over persistence across 57 inverters, served
-      through a Flask API on RDS MySQL.</li>
-      <li>Designed the fleet's REST ingestion layer (pagination, multi-domain auth,
-      deduplication) covering <strong>3,630 inverters across 3,569 sites</strong>.</li>
-      <li>Fleet analysis over 14,520 smart ports flagged <strong>210+ misconfigured units</strong>,
-      delivered to operations as ranked site-level reports.</li>
-    </ul>
-    <div class="tags"><span class="tag">python</span><span class="tag">xgboost</span><span class="tag">optuna</span><span class="tag">flask</span><span class="tag">aws</span></div>
-  </div>
+    <details class="exp-row exp-toggle">
+      <summary>
+        <span class="exp-date">jan - jun 2026</span>
+        <span class="exp-body"><strong>SWE Intern · EG4 Electronics</strong> - solar forecasting, fleet ingestion, ops analytics.<span class="exp-arrow">+</span></span>
+      </summary>
+      <div class="exp-detail">
+        <p class="detail-meta">New York, USA · Software Engineering Intern · Jan 2026 – June 2026</p>
+        <ul>
+          <li>Built and shipped an end-to-end solar PV forecasting pipeline: inverter telemetry
+          from the EG4 API joined with Open-Meteo weather into a <strong>43-feature</strong> set,
+          feeding an Optuna-tuned ensemble (global XGBoost, per-device XGBoost, Random Forest)
+          reaching <strong>R² 0.84</strong> and <strong>34.5% MAE improvement</strong> over
+          persistence baselines across 57 inverters. Forecasts served through a Flask API backed
+          by RDS MySQL.</li>
+          <li>Designed the fleet's REST ingestion layer (pagination, multiple authentication
+          domains, deduplication, location parsing) covering <strong>3,630 GridBOSS
+          inverters</strong> across <strong>3,569 sites</strong> with idempotent, normalized
+          MySQL loads.</li>
+          <li>Ran fleet-wide analysis across <strong>14,520 smart ports</strong>, classifying
+          AC-coupled, smart-load, and EV-charger usage and surfacing <strong>210+ misconfigured
+          units</strong> to the operations team as actionable site-level reports.</li>
+        </ul>
+        <div class="tags"><span class="tag">python</span><span class="tag">xgboost</span><span class="tag">optuna</span><span class="tag">flask</span><span class="tag">aws</span></div>
+      </div>
+    </details>
 
-  <div class="card">
-    <h3>Ernst &amp; Young</h3>
-    <p class="meta">Jul 2021 – Aug 2024 · New Delhi · Data &amp; Analytics</p>
-    <p class="meta"><strong>Associate Consultant</strong> · Jul 2023 – Aug 2024</p>
-    <ul>
-      <li>Sole continuous technical resource for a global pharmaceutical account, owning CRM migrations, SAP BW integration, and 12+ months of
-      production support including late-night escalation calls.</li>
-      <li>Migrated 24 Salesforce CRM objects from Redshift to Azure SQL DW as part of retiring a
-      costlier legacy AWS stack, and cut a critical stored procedure from
-      <strong>2+ hours to under 30 minutes</strong>.</li>
-      <li>Built ADF pipelines for 76 of 117 SAP BW DSOs, turning a weekly, week-lagged manual
-      portal download into a <strong>daily</strong> Power BI sales dashboard.</li>
-    </ul>
-    <p class="meta"><strong>Senior Analyst</strong> · Jan 2022 – Jun 2023</p>
-    <ul>
-      <li>Asset-health pipelines for <strong>two national utility clients</strong>: IBM APM and
-      SQL Server data into AWS (S3, Glue/PySpark, Redshift), daily refreshes saving client teams
-      <strong>25–40 hours/month</strong> of manual prep; tuned the Redshift star schema for
-      15–18% query gains.</li>
-    </ul>
-    <p class="meta"><strong>Analyst</strong> · Jul 2021 – Jan 2022</p>
-    <ul>
-      <li>SQL Server staging pipelines consolidating datasets from multiple operating regions,
-      with SQL/Python cleansing that cut manual effort <strong>~20%</strong>; helped define the
-      client's first cost-of-failure metrics with reliability SMEs.</li>
-    </ul>
-    <div class="tags"><span class="tag">adf</span><span class="tag">pyspark</span><span class="tag">redshift</span><span class="tag">azure sql</span><span class="tag">power bi</span></div>
-  </div>
+    <details class="exp-row exp-toggle">
+      <summary>
+        <span class="exp-date">2021 - 2024</span>
+        <span class="exp-body"><strong>Ernst &amp; Young</strong> - Analyst → Associate Consultant; utilities &amp; pharma data platforms on AWS + Azure.<span class="exp-arrow">+</span></span>
+      </summary>
+      <div class="exp-detail">
+        <p class="detail-meta">New Delhi, India</p>
 
-  <div class="card">
-    <h3>Research Trainee · DRDO</h3>
-    <p class="meta">Summer 2020 · New Delhi · third-year internship</p>
-    <ul>
-      <li>Digitized handwritten entry logbooks: table-structure detection plus fine-tuned
-      handwriting OCR, <strong>78% word accuracy</strong> over ~200 pages / 4K records, with
-      low-confidence rows flagged for manual review.</li>
-    </ul>
-    <div class="tags"><span class="tag">ocr</span><span class="tag">python</span><span class="tag">sqlite</span></div>
-  </div>
+        <p class="role-meta"><strong>Associate Consultant</strong> · Jan 2023 – Aug 2024</p>
+        <ul>
+          <li>Sole continuous technical resource for a global pharmaceutical account: CRM
+          migrations, SAP BW integration, and production support.</li>
+          <li>Migrated <strong>24 Salesforce CRM objects</strong> from Amazon Redshift to Azure
+          SQL DW as part of the client's program to retire a costlier legacy AWS stack, leading
+          to <strong>68% cost reduction</strong>; designed the SCD Type 2 stored procedures and
+          cut a critical fact-table SP from <strong>2+ hours to under 30 minutes</strong> by
+          converting CTEs to physical temp tables.</li>
+          <li>Designed ADF pipelines for <strong>76 of 117 SAP BW DSOs</strong> using MDX
+          (CROSSJOIN syntax, fiscal-year period variables), enabling a daily Power BI sales
+          dashboard that replaced a weekly, week-lagged manual portal download.</li>
+        </ul>
+
+        <p class="role-meta"><strong>Senior Analyst</strong> · Jan 2022 – Jan 2023</p>
+        <ul>
+          <li>Built the asset-health data platform for <strong>two national utility clients</strong>,
+          ingesting IBM Maximo APM data via ADF (self-hosted IR), ADLS Gen2, and Databricks
+          (PySpark) - daily refreshes of <strong>60+ Synapse tables</strong> saving engineering
+          teams <strong>25–40 hours/month</strong>.</li>
+          <li>Co-designed the Synapse star schema and tuned distribution strategies, columnstore
+          indexes, and materialized views - cutting a critical failure-cost query from
+          <strong>45+ minutes to under 8</strong> and dashboard loads by 20–30%; published
+          <strong>30+ governed KPIs</strong> in Power BI.</li>
+          <li>Rebuilt failure-cost reporting as event-driven Python/SQL jobs on Azure Functions
+          with Azure Monitor alerting - report turnaround from <strong>3 days to same-day</strong>.</li>
+        </ul>
+
+        <p class="role-meta"><strong>Analyst</strong> · Jul 2021 – Jan 2022</p>
+        <ul>
+          <li>Built the staging layer consolidating asset and outage data across
+          <strong>12 SEC operating regions</strong> into Azure SQL via ADF, with SQL/Python
+          cleansing cutting manual prep <strong>~20%</strong>.</li>
+        </ul>
+
+        <div class="tags"><span class="tag">adf</span><span class="tag">databricks</span><span class="tag">pyspark</span><span class="tag">azure sql</span><span class="tag">synapse</span><span class="tag">power bi</span></div>
+      </div>
+    </details>
 
   </div>
 </section>
 
 <section id="projects" class="reveal">
   <h2>projects</h2>
-  <div class="grid">
+  <div class="proj-list">
 
-    <div class="card">
-      <h3><a href="https://tysoham24.github.io/transit-pulse/">transit-pulse ↗</a></h3>
-      <p class="meta">live demo · zero-server data platform</p>
-      <p>A live NYC subway dashboard where GitHub Actions is the scheduler, parquet
-      files are the warehouse, and DuckDB runs in your browser as the query engine.
-      $0/month, publicly auditable pipeline runs.</p>
-      <div class="tags"><span class="tag">github actions</span><span class="tag">parquet</span><span class="tag">duckdb-wasm</span><span class="tag">gtfs-rt</span></div>
-    </div>
+    <article class="proj-row">
+      <div class="proj-head">
+        <h3><a href="https://github.com/tysoham24/skua-lakehouse" target="_blank" rel="noopener">Skua <span class="proj-arrow">↗</span></a></h3>
+        <span class="proj-meta">distributed data lakehouse · built from scratch</span>
+      </div>
+      <p>A working distributed data warehouse: a Raft-replicated Iceberg-style table
+      catalog, a Kafka-shaped replicated log with a Flink-shaped exactly-once stream
+      processor, and a vectorized SQL engine with a hand-written parser, rule-based
+      optimizer, and columnar storage format. Achieves <strong>3–39× SQLite
+      performance</strong> on 5M-row analytical queries; chaos tests verify correctness
+      under mid-query worker kills and Raft leader failures.</p>
+      <p class="proj-stack">raft · iceberg · vectorized sql · rust</p>
+    </article>
 
-    <div class="card">
-      <h3><a href="https://tysoham24.github.io/fieldkit/">fieldkit ↗</a></h3>
-      <p class="meta">live demo · instant CSV profiling</p>
-      <p>Drop in any messy CSV and get a schema profile, a data-quality report, and
-      auto-charts in seconds, entirely client-side. The first week of a client
-      engagement, as a tool.</p>
-      <div class="tags"><span class="tag">javascript</span><span class="tag">data quality</span><span class="tag">svg</span></div>
-    </div>
+    <article class="proj-row">
+      <div class="proj-head">
+        <h3><a href="https://github.com/tysoham24/ira" target="_blank" rel="noopener">Ira <span class="proj-arrow">↗</span></a></h3>
+        <span class="proj-meta">hybrid knowledge-graph RAG</span>
+      </div>
+      <p>Pure vector search doesn't understand relationships and pure knowledge graphs
+      miss paraphrase. Ira is a retrieval system over a Neo4j graph of retail transactions
+      that combines guardrailed LLM-generated Cypher queries with dense embedding search
+      over product descriptions, fusing the two rankings via Reciprocal Rank Fusion.
+      FastAPI service, interactive Cytoscape.js graph dashboard, docker-composed with
+      local Neo4j and Ollama; hybrid retrieval outperforms either strategy alone on
+      <strong>precision@k and MRR</strong> across a 30-query gold set, with latency
+      dominated by ~1s p50 LLM Cypher generation.</p>
+      <p class="proj-stack">neo4j · rag · fastapi · cytoscape.js · ollama</p>
+    </article>
 
-    <div class="card">
-      <h3><a href="https://github.com/tysoham24/fraud-detection-pipeline">fraud-detection-pipeline</a></h3>
-      <p class="meta">real-time streaming ML</p>
-      <p>Windowed per-card features in Spark Structured Streaming, in-stream LightGBM
-      scoring, dbt marts for model monitoring, Airflow backfills. Fully dockerized.</p>
-      <div class="tags"><span class="tag">kafka</span><span class="tag">spark</span><span class="tag">lightgbm</span><span class="tag">dbt</span></div>
-    </div>
+    <article class="proj-row">
+      <div class="proj-head">
+        <h3><a href="https://tysoham24.github.io/transit-pulse/docs/" target="_blank" rel="noopener">Transit Pulse <span class="proj-arrow">↗</span></a></h3>
+        <span class="proj-meta">live demo · serverless transit ops platform</span>
+      </div>
+      <p>Live NYC subway operations dashboard implementing a full data platform on free
+      static infrastructure: GitHub Actions cron ingests MTA GTFS-Realtime protobuf
+      every 10 minutes, writes partitioned Parquet with a manifest, and enforces
+      data-quality gates on feed freshness. A static GitHub Pages front-end runs
+      <strong>DuckDB-WASM in the browser</strong> to query Parquet directly via HTTP
+      range requests.</p>
+      <p class="proj-stack">github actions · parquet · duckdb-wasm · gtfs-rt</p>
+    </article>
 
-    <div class="card">
-      <h3><a href="https://github.com/tysoham24/open-transit-lakehouse">open-transit-lakehouse</a></h3>
-      <p class="meta">live NYC subway data</p>
-      <p>GTFS-Realtime protobuf feeds landing in Iceberg behind data-quality gates that
-      refuse bad batches; Dagster schedules, dbt headway marts in DuckDB.</p>
-      <div class="tags"><span class="tag">dagster</span><span class="tag">iceberg</span><span class="tag">duckdb</span><span class="tag">dbt</span></div>
-    </div>
-
-    <div class="card">
-      <h3><a href="https://drive.google.com/file/d/1W2cNU88qZrOVuxnFVaxUv-ODOrXoEXy3/view">Animatronic Hand</a></h3>
-      <p class="meta">embedded · demo video</p>
+    <article class="proj-row">
+      <div class="proj-head">
+        <h3><a href="https://drive.google.com/file/d/1W2cNU88qZrOVuxnFVaxUv-ODOrXoEXy3/view" target="_blank" rel="noopener">Animatronic Hand <span class="proj-arrow">↗</span></a></h3>
+        <span class="proj-meta">embedded · demo video</span>
+      </div>
       <p>Servo-actuated hand teleoperated by glove-mounted flex sensors: analog
       acquisition, calibration, PWM control in embedded C/C++.</p>
-      <div class="tags"><span class="tag">arduino</span><span class="tag">c/c++</span></div>
-    </div>
+      <p class="proj-stack">arduino · c/c++</p>
+    </article>
 
-    <div class="card">
-      <h3><a href="https://drive.google.com/file/d/1tSi9jU3jndByCchiKvwNVuRX1Q-VUpF6/view">Solar Tracker</a></h3>
-      <p class="meta">embedded · demo video</p>
+    <article class="proj-row">
+      <div class="proj-head">
+        <h3><a href="https://drive.google.com/file/d/1tSi9jU3jndByCchiKvwNVuRX1Q-VUpF6/view" target="_blank" rel="noopener">Solar Tracker <span class="proj-arrow">↗</span></a></h3>
+        <span class="proj-meta">embedded · demo video</span>
+      </div>
       <p>Panel alignment driven by photodiode intensity readings and real-time motor
       control: the project that led to the paper below.</p>
-      <div class="tags"><span class="tag">arduino</span><span class="tag">analog</span></div>
-    </div>
+      <p class="proj-stack">arduino · analog</p>
+    </article>
 
   </div>
 </section>
 
 <section id="publication" class="reveal">
   <h2>publication</h2>
-  <div class="card">
-    <h3>Battery Charging Using Solar Photovoltaic System with Maximum Power Point Tracking</h3>
-    <p class="meta">Samaddar · Rastogi · Tyagi · Mishra · Springer, Jan 2022</p>
-    <p><a href="https://link.springer.com/chapter/10.1007/978-981-16-6482-3_27">doi: 10.1007/978-981-16-6482-3_27</a></p>
+  <div class="pub-item">
+    <h3><a href="https://link.springer.com/chapter/10.1007/978-981-16-6482-3_27" target="_blank" rel="noopener">Battery Charging Using Solar Photovoltaic System with Maximum Power Point Tracking <span class="proj-arrow">↗</span></a></h3>
+    <p class="pub-meta">Samaddar · Rastogi · Tyagi · Mishra - Springer, Jan 2022</p>
+    <p class="pub-doi">doi: 10.1007/978-981-16-6482-3_27</p>
   </div>
 </section>
 
-<section id="writing" class="reveal">
-  <h2>latest writing</h2>
-  <div class="grid">
-    <div class="card">
-      <h3><a href="blog/forecasting-solar-with-boring-models.html">Forecasting Solar with Boring Models</a></h3>
-      <p class="meta">6 min</p>
-      <p>Papers say transformers. Production says gradient-boosted trees over sun geometry.</p>
+<section id="resume" class="reveal">
+  <h2>resume</h2>
+  <p class="resume-note">
+    <a href="resume.pdf" target="_blank" rel="noopener">Download resume (PDF) <span class="proj-arrow">↗</span></a>
+  </p>
+</section>
+
+<section id="contact" class="reveal">
+  <h2>contact</h2>
+  <dl class="contact-list">
+    <div class="contact-row">
+      <dt>email</dt>
+      <dd><a href="mailto:tysoham24@gmail.com">tysoham24@gmail.com</a></dd>
     </div>
-    <div class="card">
-      <h3><a href="blog/the-stored-procedure-that-took-two-hours.html">The Stored Procedure That Took Two Hours</a></h3>
-      <p class="meta">5 min</p>
-      <p>Five beautiful CTEs, one poisoned query plan, a fix that was mostly indentation.</p>
+    <div class="contact-row">
+      <dt>linkedin</dt>
+      <dd><a href="https://linkedin.com/in/soham-ty" target="_blank" rel="noopener">/in/soham-ty <span class="proj-arrow">↗</span></a></dd>
     </div>
-  </div>
-  <p style="margin-top:14px"><a href="blog/index.html">all posts →</a></p>
+    <div class="contact-row">
+      <dt>github</dt>
+      <dd><a href="https://github.com/tysoham24" target="_blank" rel="noopener">@tysoham24 <span class="proj-arrow">↗</span></a></dd>
+    </div>
+    <div class="contact-row">
+      <dt>location</dt>
+      <dd>New York, NY</dd>
+    </div>
+  </dl>
 </section>
 
 <footer>
@@ -263,7 +318,7 @@
       { p: true,  t: 'whoami' },
       { p: false, t: 'soham tyagi · data & software engineer' },
       { p: true,  t: 'ls ~/work' },
-      { p: false, t: 'eg4-solar-forecasting/  cinderella-app/  ey-consulting/  drdo-ocr/' },
+      { p: false, t: 'eg4-solar-forecasting/  cinderella-app/  ey-consulting/' },
       { p: true,  t: 'cat now.txt' },
       { p: false, t: 'MS CompE @ NYU · co-founder @ cinderella · ex-EY, ex-EG4' },
       { p: true,  t: './portfolio --open' },
@@ -294,7 +349,8 @@
   var canvas = document.getElementById('bg'), ctx = canvas.getContext('2d'), pts = [];
   function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
   resize(); addEventListener('resize', resize);
-  for (var i = 0; i < 70; i++) pts.push({ x: Math.random()*innerWidth, y: Math.random()*innerHeight, vx: (Math.random()-.5)*.35, vy: (Math.random()-.5)*.35 });
+  var ptCount = innerWidth < 700 ? 32 : 70;
+  for (var i = 0; i < ptCount; i++) pts.push({ x: Math.random()*innerWidth, y: Math.random()*innerHeight, vx: (Math.random()-.5)*.35, vy: (Math.random()-.5)*.35 });
   function step() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (var i = 0; i < pts.length; i++) {
@@ -323,7 +379,7 @@
   });
   document.querySelectorAll('.card').forEach(function (card) {
     card.addEventListener('mousemove', function (e) {
-      if (reduced) return;
+      if (reduced || innerWidth < 700) return;
       var r = card.getBoundingClientRect();
       var rx = ((e.clientY - r.top) / r.height - .5) * -4;
       var ry = ((e.clientX - r.left) / r.width - .5) * 4;
@@ -343,9 +399,13 @@
   var input = document.getElementById('palette-input');
   var list = document.getElementById('palette-list');
   var items = [
+    { k: 'go', label: 'about', act: function(){ location.hash = '#about'; } },
+    { k: 'go', label: 'skills', act: function(){ location.hash = '#skills'; } },
     { k: 'go', label: 'experience', act: function(){ location.hash = '#experience'; } },
     { k: 'go', label: 'projects', act: function(){ location.hash = '#projects'; } },
     { k: 'go', label: 'publication', act: function(){ location.hash = '#publication'; } },
+    { k: 'go', label: 'resume', act: function(){ location.hash = '#resume'; } },
+    { k: 'go', label: 'contact', act: function(){ location.hash = '#contact'; } },
     { k: 'go', label: 'blog', act: function(){ location.href = 'blog/index.html'; } },
     { k: 'open', label: 'github / tysoham24', act: function(){ location.href = 'https://github.com/tysoham24'; } },
     { k: 'open', label: 'linkedin / soham-ty', act: function(){ location.href = 'https://linkedin.com/in/soham-ty'; } },
@@ -380,7 +440,7 @@
   palette.addEventListener('click', function (e) { if (e.target === palette) close(); });
 
   /* ---- typing rotator ---- */
-  var roles = ['data engineer', 'software engineer', 'pipeline person', 'co-founder @ cinderella', 'ee at heart'];
+  var roles = ['consultant', 'data engineer', 'software engineer', 'co-founder', 'electrical engineer'];
   var tEl = document.getElementById('type-target'), ri = 0, ci = 0, del = false;
   function typeRole() {
     if (reduced) { tEl.textContent = roles[0]; return; }
@@ -407,7 +467,7 @@
       dots.forEach(function (d) { d.classList.toggle('on', d.dataset.s === e.target.id); });
     });
   }, { rootMargin: '-40% 0px -50% 0px' });
-  ['about','stack','experience','projects','publication','writing'].forEach(function (id) {
+  ['about','skills','experience','projects','publication','resume','contact'].forEach(function (id) {
     var el = document.getElementById(id); if (el) io2.observe(el);
   });
 })();
